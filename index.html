@@ -66,12 +66,17 @@ window.addEventListener('keydown', function(event) {
   audio.currentTime = 0;
   audio.play();
   key.classList.add('playing');
-  console.log(audio);
-  console.log(key);
-  console.log(key.className);
 })
 
+function removeTransition(event) {
+  if(event.propertyName !== 'transform') return; //skip it if it's not a transform transition
+  // ontransitionend(this.classList.remove('playing'));
+  this.classList.remove('playing');
+}
+
 const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
 </script>
 
 
