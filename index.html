@@ -12,19 +12,19 @@
   </div>
 
   <div class="keys">
-    <div data-key="65" class="key">
+    <div data-label="aarti" data-key="65" class="key">
       <kbd>A</kbd>
       <span class="sound">Aarti</span>
     </div>
-    <div data-key="83" class="key">
+    <div data-label="steph" data-key="83" class="key">
       <kbd>S</kbd>
       <span class="sound">Steph</span>
     </div>
-    <div data-key="68" class="key">
+    <div data-label="dennis" data-key="68" class="key">
       <kbd>D</kbd>
       <span class="sound">Dennis</span>
     </div>
-    <div data-key="77" class="key">
+    <div data-label="mariana" data-key="77" class="key">
       <kbd>M</kbd>
       <span class="sound">Mariana</span>
     </div>
@@ -38,8 +38,20 @@
 <script>
 
 function playSound(event) {
-  const audio = document.querySelector(`audio[data-key = "${event.keyCode}"]`);
-  const key = document.querySelector(`.key[data-key = "${event.keyCode}"]`);
+          let code;
+        if (event.keyCode) {
+          // it was a keypress, get the keycode as usual
+          code = event.keyCode;
+        } else {
+          // it was a click.  Read the keycode from the div that was clicked
+          console.log(this)
+          console.log("DATASET : ",this.dataset);
+          code = this.dataset.key;
+        }
+
+  const audio = document.querySelector(`audio[data-key = "${code}"]`);
+  const key = document.querySelector(`.key[data-key = "${code}"]`);
+  
   if(!audio) return;
   audio.currentTime = 0;
   audio.play();
@@ -52,7 +64,11 @@ function removeTransition(event) {
 }
 
 const keys = document.querySelectorAll('.key');
-keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  keys.forEach(key => {
+    key.addEventListener('transitionend', removeTransition);
+    key.addEventListener('click', playSound);
+  })
+  
 
 window.addEventListener('keydown', playSound);
 
