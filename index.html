@@ -44,11 +44,8 @@ function playSound(event) {
           code = event.keyCode;
         } else {
           // it was a click.  Read the keycode from the div that was clicked
-          console.log(this)
-          console.log("DATASET : ",this.dataset);
           code = this.dataset.key;
         }
-
   const audio = document.querySelector(`audio[data-key = "${code}"]`);
   const key = document.querySelector(`.key[data-key = "${code}"]`);
   
