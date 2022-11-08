@@ -70,7 +70,6 @@ kbd {
   .keys{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
   }
 }
 @media (min-width: 560rem) {
